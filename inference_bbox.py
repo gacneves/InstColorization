@@ -1,7 +1,7 @@
 from os.path import join, isfile, isdir
 from os import listdir
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
 from argparse import ArgumentParser
 
 import detectron2
@@ -23,6 +23,7 @@ cfg = get_cfg()
 cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_X_101_32x8d_FPN_3x.yaml"))
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
 cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_X_101_32x8d_FPN_3x.yaml")
+cfg.MODEL.DEVICE='cpu'
 predictor = DefaultPredictor(cfg)
 
 parser = ArgumentParser()
